@@ -1,5 +1,21 @@
 // ==========================================
-// 1. MOBILE NAVIGATION TOGGLE (PROTECTED)
+// 0. LOADER / BUFFERING LOGIC
+// ==========================================
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader-wrapper');
+    if (loader) {
+        // Efek transisi memudar
+        loader.style.opacity = '0';
+        // Menghilangkan elemen dari DOM setelah memudar
+        setTimeout(() => {
+            loader.style.visibility = 'hidden';
+            loader.style.display = 'none';
+        }, 500);
+    }
+});
+
+// ==========================================
+// 1. MOBILE NAVIGATION TOGGLE
 // ==========================================
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
@@ -10,7 +26,6 @@ if (hamburger && navLinks) {
         hamburger.classList.toggle('active');
     });
 
-    // Menutup menu mobile ketika tautan link diklik
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
@@ -20,7 +35,7 @@ if (hamburger && navLinks) {
 }
 
 // ==========================================
-// 2. NAVBAR SCROLL EFFECT (PROTECTED)
+// 2. NAVBAR SCROLL EFFECT
 // ==========================================
 const navbar = document.querySelector('.navbar');
 if (navbar) {
@@ -52,7 +67,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
-// 4. CONTACT FORM SUBMISSION EVENT (PROTECTED)
+// 4. CONTACT FORM SUBMISSION EVENT
 // ==========================================
 const contactForm = document.querySelector('.contact-form form');
 if (contactForm) {
@@ -64,7 +79,7 @@ if (contactForm) {
 }
 
 // ==========================================
-// 5. INTERSECTION OBSERVER ANIMATION (SAFE)
+// 5. INTERSECTION OBSERVER (KOREOGRAFI ANIMASI)
 // ==========================================
 const observerOptions = {
     threshold: 0.1,
@@ -74,19 +89,28 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            // Untuk elemen koreografi index.html
+            if (entry.target.classList.contains('animate-fade-up')) {
+                entry.target.classList.add('is-visible');
+            } else {
+                // Untuk elemen lama di main.html
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
         }
     });
 }, observerOptions);
 
-// Menerapkan inisialisasi gaya animasi hanya pada elemen yang eksis
-const animatedElements = document.querySelectorAll('.course-card, .tutor-card, .testimonial-card, .stat-item');
+// Mengamati elemen dari main.html dan kelas koreografi baru dari index.html
+const animatedElements = document.querySelectorAll('.course-card, .tutor-card, .testimonial-card, .stat-item, .animate-fade-up');
 if (animatedElements.length > 0) {
     animatedElements.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        // Jika bukan bagian dari kelas koreografi, set state awalnya secara manual di JS
+        if (!card.classList.contains('animate-fade-up')) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        }
         observer.observe(card);
     });
 }

@@ -1,5 +1,5 @@
 /* ==========================================
-   GLOBAL RESET & VARIABLES
+    GLOBAL RESET & VARIABLES
    ========================================== */
 * {
     margin: 0;
@@ -29,17 +29,130 @@ body {
     overflow-x: hidden;
     background-color: #f8f9fa;
 }
+/* ==========================================
+    LOADING / BUFFERING SCREEN
+   ========================================== */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f8f9fa;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader {
+    border: 5px solid #e0e0e0;
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 /* ==========================================
-   LANDING PAGE STYLES (index.html)
+    LOGO PLACEHOLDER
+   ========================================== */
+.logo-img {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    /* Jika belum punya gambar, ini akan memberi kotak abu-abu sebagai penanda */
+    background-color: #ddd; 
+    border-radius: 5px;
+}
+
+/* ==========================================
+    ANIMATIONS: FADE IN DOWN (Top Navbar & Banner)
+   ========================================== */
+
+.animate-slide-from-nav {
+    opacity: 0;
+    /* Mulai dari sumbu Y negatif (tertutup oleh navbar di atasnya) */
+    transform: translateY(-80px); 
+    /* Menggunakan cubic-bezier agar animasi terasa mulus (cepat di awal, melambat di akhir) */
+    animation: slideFromNav 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideFromNav {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-down {
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: fadeInDown 0.8s ease forwards;
+}
+
+.hero-delay {
+    animation-delay: 0.3s; /* Menunda banner agar nav muncul lebih dulu */
+}
+
+@keyframes fadeInDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+    ANIMATIONS: FADE IN UP (Features & Cards)
+   ========================================== */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Urutan Koreografi Delay */
+.delay-title { transition-delay: 0s; }
+.delay-middle { transition-delay: 0.2s; } /* Tengah muncul pertama dari card */
+.delay-left { transition-delay: 0.4s; }   /* Kiri muncul kedua */
+.delay-right { transition-delay: 0.6s; }  /* Kanan muncul terakhir */
+
+/* ==========================================
+    LANDING PAGE STYLES (index.html)
    ========================================== */
 .landing-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Gunakan background putih solid agar banner di bawahnya tidak tembus pandang saat animasi */
+    background-color: #ffffff; 
+    
+    /* Membuat Navbar Sticky & Layer Paling Atas */
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
+}
+
+.landing-nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    /* Memudar di 0% (kiri) & 100% (kanan), warna terlihat di 50% (tengah) */
+    background: linear-gradient(90deg, rgba(93,63,211,0) 0%, rgba(93,63,211,0.5) 50%, rgba(93,63,211,0) 100%);
 }
 
 .landing-logo {
@@ -73,6 +186,10 @@ body {
     padding: 80px 20px;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
+    
+    /* Layer Banner tepat di bawah Navbar (10 < 1000) */
+    position: relative;
+    z-index: 10; 
 }
 
 .landing-hero h1 {
@@ -1020,7 +1137,7 @@ footer {
 }
 
 /* ==========================================
-   RESPONSIVE LAYOUT MEDIA QUERIES
+    RESPONSIVE LAYOUT MEDIA QUERIES
    ========================================== */
 @media (max-width: 992px) {
     .about-container, .contact-container { grid-template-columns: 1fr; }
