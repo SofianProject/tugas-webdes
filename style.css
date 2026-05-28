@@ -1,6 +1,3 @@
-/* ==========================================
-    GLOBAL RESET & VARIABLES
-   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -29,9 +26,7 @@ body {
     overflow-x: hidden;
     background-color: #f8f9fa;
 }
-/* ==========================================
-    LOADING / BUFFERING SCREEN
-   ========================================== */
+
 #loader-wrapper {
     position: fixed;
     top: 0;
@@ -60,27 +55,17 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* ==========================================
-    LOGO PLACEHOLDER
-   ========================================== */
 .logo-img {
     height: 30px;
     width: auto;
     object-fit: contain;
-    /* Jika belum punya gambar, ini akan memberi kotak abu-abu sebagai penanda */
     background-color: #ddd; 
     border-radius: 5px;
 }
 
-/* ==========================================
-    ANIMATIONS: FADE IN DOWN (Top Navbar & Banner)
-   ========================================== */
-
 .animate-slide-from-nav {
     opacity: 0;
-    /* Mulai dari sumbu Y negatif (tertutup oleh navbar di atasnya) */
-    transform: translateY(-80px); 
-    /* Menggunakan cubic-bezier agar animasi terasa mulus (cepat di awal, melambat di akhir) */
+    transform: translateY(-80px);
     animation: slideFromNav 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -97,7 +82,7 @@ body {
 }
 
 .hero-delay {
-    animation-delay: 0.3s; /* Menunda banner agar nav muncul lebih dulu */
+    animation-delay: 0.3s;
 }
 
 @keyframes fadeInDown {
@@ -107,9 +92,6 @@ body {
     }
 }
 
-/* ==========================================
-    ANIMATIONS: FADE IN UP (Features & Cards)
-   ========================================== */
 .animate-fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -121,24 +103,17 @@ body {
     transform: translateY(0);
 }
 
-/* Urutan Koreografi Delay */
 .delay-title { transition-delay: 0s; }
-.delay-middle { transition-delay: 0.2s; } /* Tengah muncul pertama dari card */
-.delay-left { transition-delay: 0.4s; }   /* Kiri muncul kedua */
-.delay-right { transition-delay: 0.6s; }  /* Kanan muncul terakhir */
+.delay-middle { transition-delay: 0.2s; }
+.delay-left { transition-delay: 0.4s; }
+.delay-right { transition-delay: 0.6s; }
 
-/* ==========================================
-    LANDING PAGE STYLES (index.html)
-   ========================================== */
 .landing-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 8%;
-    /* Gunakan background putih solid agar banner di bawahnya tidak tembus pandang saat animasi */
     background-color: #ffffff; 
-    
-    /* Membuat Navbar Sticky & Layer Paling Atas */
     position: sticky;
     top: 0;
     z-index: 1000; 
@@ -151,7 +126,6 @@ body {
     left: 0;
     width: 100%;
     height: 1.5px;
-    /* Memudar di 0% (kiri) & 100% (kanan), warna terlihat di 50% (tengah) */
     background: linear-gradient(90deg, rgba(93,63,211,0) 0%, rgba(93,63,211,0.5) 50%, rgba(93,63,211,0) 100%);
 }
 
@@ -190,8 +164,6 @@ body {
     padding: 80px 20px;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
-    
-    /* Layer Banner tepat di bawah Navbar (10 < 1000) */
     position: relative;
     z-index: 10; 
 }
@@ -265,10 +237,8 @@ body {
     line-height: 1.5;
 }
 
+/* login.html */
 
-/* ==========================================
-   LOGIN PAGE STYLES (login.html)
-   ========================================== */
 body.login-page-body {
     background: linear-gradient(135deg, #f3f0ff, #e8e2ff);
     height: 100vh;
@@ -364,9 +334,7 @@ body.login-page-body {
 }
 
 
-/* ==========================================
-   MAIN DASHBOARD STYLES (main.html)
-   ========================================== */
+/* main.html */
 .navbar {
     position: fixed;
     top: 0;
@@ -1140,9 +1108,6 @@ footer {
     color: var(--gray);
 }
 
-/* ==========================================
-    RESPONSIVE LAYOUT MEDIA QUERIES
-   ========================================== */
 @media (max-width: 992px) {
     .about-container, .contact-container { grid-template-columns: 1fr; }
     .about-image { order: -1; }
