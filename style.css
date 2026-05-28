@@ -155,16 +155,20 @@ body {
     background: linear-gradient(90deg, rgba(93,63,211,0) 0%, rgba(93,63,211,0.5) 50%, rgba(93,63,211,0) 100%);
 }
 
-.landing-logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #5d3fd3;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
+.logo-img {
+    height: 35px;
+    width: 35px;
+    object-fit: contain;   
+    
+    border: 1.5px solid rgba(93, 63, 211, 0.3); 
+    border-radius: 8px;    
+    padding: 3px;          
+    background-color: #ffffff; 
+    
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: middle;
 }
-
 .btn-login-landing {
     background-color: #5d3fd3;
     color: white;
