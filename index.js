@@ -1,12 +1,8 @@
-// ==========================================
-// 0. LOADER / BUFFERING LOGIC
-// ==========================================
+// LOADER / BUFFERING LOGIC
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader-wrapper');
     if (loader) {
-        // Efek transisi memudar
         loader.style.opacity = '0';
-        // Menghilangkan elemen dari DOM setelah memudar
         setTimeout(() => {
             loader.style.visibility = 'hidden';
             loader.style.display = 'none';
@@ -14,9 +10,7 @@ window.addEventListener('load', () => {
     }
 });
 
-// ==========================================
-// 1. MOBILE NAVIGATION TOGGLE
-// ==========================================
+// MOBILE NAVIGATION TOGGLE
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelector('.nav-links');
 
@@ -34,9 +28,7 @@ if (hamburger && navLinks) {
     });
 }
 
-// ==========================================
-// 2. NAVBAR SCROLL EFFECT
-// ==========================================
+// NAVBAR SCROLL EFFECT
 const navbar = document.querySelector('.navbar');
 if (navbar) {
     window.addEventListener('scroll', () => {
@@ -50,9 +42,7 @@ if (navbar) {
     });
 }
 
-// ==========================================
-// 3. SMOOTH SCROLL FOR ANCHOR LINKS
-// ==========================================
+// SMOOTH SCROLL FOR ANCHOR LINKS
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -66,9 +56,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ==========================================
-// 4. CONTACT FORM SUBMISSION EVENT
-// ==========================================
+// CONTACT FORM SUBMISSION EVENT
 const contactForm = document.querySelector('.contact-form form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -78,9 +66,7 @@ if (contactForm) {
     });
 }
 
-// ==========================================
-// 5. INTERSECTION OBSERVER (KOREOGRAFI ANIMASI)
-// ==========================================
+// INTERSECTION OBSERVER (KOREOGRAFI ANIMASI)
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -89,11 +75,9 @@ const observerOptions = {
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Untuk elemen koreografi index.html
             if (entry.target.classList.contains('animate-fade-up')) {
                 entry.target.classList.add('is-visible');
             } else {
-                // Untuk elemen lama di main.html
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
             }
@@ -101,11 +85,10 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Mengamati elemen dari main.html dan kelas koreografi baru dari index.html
+
 const animatedElements = document.querySelectorAll('.course-card, .tutor-card, .testimonial-card, .stat-item, .animate-fade-up');
 if (animatedElements.length > 0) {
     animatedElements.forEach(card => {
-        // Jika bukan bagian dari kelas koreografi, set state awalnya secara manual di JS
         if (!card.classList.contains('animate-fade-up')) {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
